@@ -33,7 +33,7 @@ export default class HTML extends React.Component {
           <script src={withPrefix('/js/skel.min.js')}></script>
           <script src={withPrefix('/js/jquery.pin.min.js')}></script>
           <script src={withPrefix('/js/util.js')}></script>
-          <script src={withPrefix('/js/main.js')}></script>
+          {/*<script src={withPrefix('/js/main.js')}></script>*/}
         </body>
       </html>
     )

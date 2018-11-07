@@ -4,6 +4,7 @@ import TeamMemberImage from '../components/teamMemberImage';
 import TeamMemberLinks from '../components/teamMemberLinks';
 import Layout from '../components/layout';
 import Banner from '../components/banner';
+import Navigation from '../components/navigation';
 
 const AboutPage = () => (
   <StaticQuery
@@ -43,6 +44,9 @@ const AboutPage = () => (
     }
     render={data => (
       <Layout>
+
+        <Navigation/>
+
         <div id="page-wrapper">
           <Banner title="Team"/>
           <section id="wrapper">

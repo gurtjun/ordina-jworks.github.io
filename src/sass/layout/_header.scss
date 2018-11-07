@@ -47,7 +47,8 @@
     text-transform: uppercase;
     top: 0.7em;
 
-    a {
+    a,
+    span {
       border: 0;
       display: inline-block;
       padding: 0 1em;
@@ -58,24 +59,23 @@
         margin-left: 0.75em;
       }
 
-      &[href="#menu"] {
-        @include icon;
-        @include vendor('transition', 'background-color #{_duration(transition)} ease-in-out');
-        border-radius: _size(border-radius);
-        box-shadow: inset 0 0 0 2px _palette(border);
-        padding: 0 1.35em;
+      @include icon;
+      @include vendor('transition', 'background-color #{_duration(transition)} ease-in-out');
+      border-radius: _size(border-radius);
+      box-shadow: inset 0 0 0 2px _palette(border);
+      padding: 0 1.35em;
+      cursor: pointer;
 
-        &:before {
-          content: '\f0c9';
-        }
+      &:before {
+        content: '\f0c9';
+      }
 
-        &:hover {
-          background-color: _palette(border-bg);
-        }
+      &:hover {
+        background-color: _palette(border-bg);
+      }
 
-        &:active {
-          background-color: _palette(border2-bg);
-        }
+      &:active {
+        background-color: _palette(border2-bg);
       }
     }
   }
@@ -99,18 +99,17 @@
       height: inherit;
       line-height: inherit;
 
-      a {
+      a,
+      span {
         height: inherit;
         line-height: inherit;
 
-        &[href="#menu"] {
-          box-shadow: none;
-          padding: 0 1em;
-          border-radius: 0;
+        box-shadow: none;
+        padding: 0 1em;
+        border-radius: 0;
 
-          &:hover, &:active {
-            background-color: inherit;
-          }
+        &:hover, &:active {
+          background-color: inherit;
         }
       }
     }
@@ -118,23 +117,22 @@
 
   @include breakpoint(xsmall) {
     nav {
-      a {
-        &[href="#menu"] {
-          width: 4em;
-          white-space: nowrap;
-          text-indent: 4em;
-          position: relative;
+      a,
+      span {
+        width: 4em;
+        white-space: nowrap;
+        text-indent: 4em;
+        position: relative;
 
-          &:before {
-            width: inherit;
-            position: absolute;
-            top: 0;
-            left: 0;
-            text-indent: 0;
-            text-align: right;
-            margin-left: 0;
-            padding-right: 1.25em;
-          }
+        &:before {
+          width: inherit;
+          position: absolute;
+          top: 0;
+          left: 0;
+          text-indent: 0;
+          text-align: right;
+          margin-left: 0;
+          padding-right: 1.25em;
         }
       }
     }
