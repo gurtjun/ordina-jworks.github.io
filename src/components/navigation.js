@@ -67,7 +67,7 @@ class Navigation extends React.Component {
               <li className="menu-item"><Link to={`/search`}>Search</Link></li>
               <li className="menu-item"><Link to={`/contact`}>Contact Us</Link></li>
             </ul>
-            <a href="#" className="close" onClick={this.handleNavClick}>Close</a>
+            <span className="close" onClick={this.handleNavClick}>Close</span>
           </div>
         </nav>
       </>
