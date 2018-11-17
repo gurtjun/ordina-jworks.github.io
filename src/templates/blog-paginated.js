@@ -4,6 +4,8 @@ import Layout from '../components/layout';
 import Navigation from '../components/navigation';
 import Banner from '../components/banner';
 import Card from '../components/card';
+import Tags from '../components/tags';
+import Categories from '../components/categories';
 
 class BlogPaginated extends React.Component {
   render() {
@@ -77,6 +79,22 @@ class BlogPaginated extends React.Component {
                   </div>
                 </div>
               </section>
+            </div>
+          </section>
+
+          <section id="two" className="wrapper alt spotlight style2">
+            <div className="inner">
+              <div className="content">
+                <Categories title={`Categories`}/>
+              </div>
+            </div>
+          </section>
+
+          <section id="three" className="wrapper spotlight style3">
+            <div className="inner">
+              <div className="content">
+                <Tags title={`Tags`}/>
+              </div>
             </div>
           </section>
         </div>

@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import Banner from '../components/banner';
 import Navigation from '../components/navigation';
 import Card from '../components/card';
+import Categories from '../components/categories';
 
 
 class CategoryTemplate extends React.Component {
@@ -38,6 +39,14 @@ class CategoryTemplate extends React.Component {
                         )
                       })}
                     </section>
+                  </div>
+                </div>
+              </section>
+
+              <section id="two" className="wrapper alt style3">
+                <div className="inner">
+                  <div className="content">
+                    <Categories title={`Other Categories`}/>
                   </div>
                 </div>
               </section>
