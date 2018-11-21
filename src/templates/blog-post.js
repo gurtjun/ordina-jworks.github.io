@@ -13,16 +13,16 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.markdownRemark
 
     let byAuthors = post.frontmatter.authors.map((author, index, array) => {
-      if (index === 0) {
-        return <Link key={author.id} to={author.fields.slug}>{author.first_name} {author.last_name}</Link>
-      } else {
-        if (index === (array.length - 1)) {
-          return <> and <Link key={author.id} to={author.fields.slug}>{author.first_name} {author.last_name}</Link></>
-        } else {
-          return <>, <Link key={author.id}>{author.first_name} {author.last_name}</Link></>
-        }
-      }
+      return index === 0 ? <Link key={author.id} to={author.fields.slug}>{author.first_name} {author.last_name}</Link> :
+        (index === array.length -1 ?
+          <> and <Link key={author.id} to={author.fields.slug}>{author.first_name} {author.last_name}</Link></> :
+          <>, <Link key={author.id} to={author.fields.slug}>{author.first_name} {author.last_name}</Link></>)
+
     })
+
+    let tags = post.frontmatter.tags.map((tag, index, array) => (
+      <Link to={`/tags/${_.kebabCase(_.toLower(tag))}`}>{index === array.length -1 ? tag : `${tag}, `}</Link>
+    ))
 
     return (
       <Layout>
@@ -33,10 +33,10 @@ class BlogPostTemplate extends React.Component {
 
           <Banner
             title={post.frontmatter.title}
-            content={<>Posted {post.frontmatter.date} in <Link to={_.kebabCase(post.frontmatter.category)}>{post.frontmatter.category}</Link> by {byAuthors}
+            content={<>Posted {post.frontmatter.date} in <Link to={`/categories/${_.kebabCase(_.toLower(post.frontmatter.category))}`}>{post.frontmatter.category}</Link> by {byAuthors}
               <br/>
               <i className="fa fa-tags"></i>&nbsp;
-            {_.join(post.frontmatter.tags, ', ')}</>}
+                              {tags}</>}
           />
           <section id="wrapper">
             <div className="inner">

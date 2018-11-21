@@ -18,6 +18,7 @@ exports.createPages = ({ actions, graphql }) => {
     const jobTemplate = path.resolve('./src/templates/job.js')
     const authorTemplate = path.resolve('./src/templates/author.js')
     const categoryTemplate = path.resolve('./src/templates/category.js')
+    const tagTemplate = path.resolve('./src/templates/tag.js')
     resolve(
       graphql(
         `
@@ -32,6 +33,7 @@ exports.createPages = ({ actions, graphql }) => {
                   frontmatter {
                     title
                     category
+                    tags
                   }
                 }
               }
@@ -60,8 +62,9 @@ exports.createPages = ({ actions, graphql }) => {
         const posts = md.filter(post => post.node.fields.type === 'blog')
 
         let categories = []
+        let tags = []
 
-        _.each(posts, (post) => {
+        _.each(posts, post => {
           createPage({
             path: post.node.fields.slug,
             component: blogPostTemplate,
@@ -70,19 +73,37 @@ exports.createPages = ({ actions, graphql }) => {
             },
           })
 
-          categories.push(_.kebabCase(post.node.frontmatter.category))
+          _.each(post.node.frontmatter.tags, tag => {
+            tags.push(_.toLower(tag))
+          })
+
+          categories.push(_.toLower(post.node.frontmatter.category))
         })
 
-
         // Create category pages
-        const uniqueCategories = [...new Set(categories)]
+        categories = _.uniq(categories)
 
-        _.each(uniqueCategories, (category) => {
+        _.each(categories, category => {
           createPage({
-            path: category,
+            path: `categories/${_.kebabCase(category)}`,
             component: categoryTemplate,
             context: {
-              category: category
+              category: category,
+              categoryRegex: `/${category}/i` // case-insensitive matching in regex
+            }
+          })
+        })
+
+        // Create tag pages
+        tags = _.uniq(tags)
+
+        _.each(tags, tag => {
+          createPage({
+            path: `tags/${_.kebabCase(tag)}`,
+            component: tagTemplate,
+            context: {
+              tag: tag,
+              tagRegex: `/${tag}/i`
             }
           })
         })
@@ -90,7 +111,7 @@ exports.createPages = ({ actions, graphql }) => {
         // Create job pages.
         const jobs = md.filter(post => post.node.fields.type === 'job')
 
-        _.each(jobs, (job) => {
+        _.each(jobs, job => {
           createPage({
             path: job.node.fields.slug,
             component: jobTemplate,
@@ -103,7 +124,7 @@ exports.createPages = ({ actions, graphql }) => {
         // Create author pages.
         const authors = result.data.allAuthorsYaml.edges;
 
-        _.each(authors, (author) => {
+        _.each(authors, author => {
           createPage({
             path: author.node.fields.slug,
             component: authorTemplate,
@@ -186,12 +207,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
         name: `type`,
         node,
         value: 'blog',
-      })
-
-      createNodeField({
-        name: `category_lower`,
-        node,
-        value: _.kebabCase(node.frontmatter.category),
       })
     }
 

@@ -27,7 +27,9 @@ const Categories = ({ title }) => (
       let categories = []
       _.each(posts, edge => {
         if (_.get(edge, "node.frontmatter.category")) {
-          categories = categories.concat(edge.node.frontmatter.category)
+          if (!categories.map(c => c.toLowerCase()).includes((edge.node.frontmatter.category).toLowerCase())) {
+            categories = categories.concat(edge.node.frontmatter.category)
+          }
         }
       })
       categories = _.uniq(categories)
@@ -37,7 +39,7 @@ const Categories = ({ title }) => (
           <h2 className="major">{title}</h2>
           <div className="category-list left">
             {categories.map(category => (
-              <Link to={`/${category.toLowerCase()}`} key={category}><i className="fa fa-folder-o fa-fw"></i>{category}</Link>
+              <Link to={`/categories/${category.toLowerCase()}`} key={category}><i className="fa fa-folder-o fa-fw"></i>{category}</Link>
             ))}
           </div>
         </>
